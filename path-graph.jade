@@ -1,0 +1,72 @@
+doctype default 
+include mixins
+html
+  head
+    block head
+      block meta
+        meta(charset="utf-8")
+        mixin viewport
+      mixin stylesheet("css/bootstrap.min.css")
+      block style
+        mixin stylesheet("css/index.css")
+  body
+  block content
+  block script
+    mixin javascript("js/d3.v3.min.js")
+    mixin javascript("js/jquery.min.js")
+    mixin javascript("js/bootstrap.min.js")
+    mixin javascript("js/path-graph.js")
+    mixin javascript("js/showtweets.js")
+
+    .container
+      .row
+        //.span5
+        #graph.col-md-8(style="margin-top:20px;margin-buttom:10px")
+          p Path Graph
+          p Show who repost the tweet
+          #path-graph
+        //.span4
+        .col-md-3.col-md-offset-1(style="margin-top:20px")
+          span Information: 
+            table.table(style="margin-top:20px")
+              thead
+                tr
+                  th 
+              tbody#one-tweet
+                tr
+                  td ObjectId
+                  td
+                tr
+                  td ScreenName
+                  td
+                tr
+                  td Gender
+                  td
+                tr
+                  td Time
+                  td
+                tr
+                  td Text
+                  td
+
+        script(type='text/javascript').
+        
+          $(document).ready(function(){
+          
+            $.urlParam = function(name){
+                var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+                    if( results)
+                    return results[1] || 0;
+                    else
+                    return null;
+                    }
+          
+            var tweetid = $.urlParam("tweetid");
+            if(!tweetid)
+              $("#graph").removeClass("col-md-8").addClass("col-md-12");
+            else{
+              $("#graph").removeClass("col-md-12").addClass("col-md-8");
+            }
+            pathGraph("#path-graph",tweetid);
+              
+          });

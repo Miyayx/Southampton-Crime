@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+</style>
+<body>
+<div id="path-graph">
+</div>
+</body>
+<script src="http://d3js.org/d3.v2.js?2.9.1"></script>
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="./path-graph.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $.urlParam = function(name){
+      var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+          if( results)
+          return results[1] || 0;
+          else
+          return null;
+          }
+
+  var tweetid = $.urlParam("tweetid");
+  pathGraph("#path-graph",tweetid);
+    
+});
+</script>
+
+</html>

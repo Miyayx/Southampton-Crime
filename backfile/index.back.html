@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<style>
+
+text {
+  font: 20px sans-serif;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+  text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="span8">
+<div class="tabbable" style="text-align:center;margin-top:20px;margin-buttom:10px"> 
+  <ul class="nav nav-pills" >
+    <li class="active" id="bubble-tab" style="text-align:center"><a href="#bubble-chart" data-toggle="tab">Bubble Chart</a></li>
+    <li id="bar-tab" style="text-align:center"><a href="#bar-chart" data-toggle="tab">Bar Chart</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="bubble-chart">
+    </div>
+    <div class="tab-pane" id="bar-chart">
+    </div>
+  </div>
+</div>
+</div>
+<div class = "span4">
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="./bubble-chart.js"></script>
+<script src="./bar-chart.js"></script>
+
+<script>
+$(document).ready(function(){
+
+  $.getJSON("/reposts.json",function(json){
+      bubbleChart("#bubble-chart",json);
+      barChart("#bar-chart",json);
+    $(".nav-pills li#bubble-tab a").click(function(e){
+      e.preventDefault();
+      bubbleChart("#bubble-chart",json);
+      $(this).tab('show');
+    });
+
+    $(".nav-pills li#bar-tab a").click(function(e){
+      e.preventDefault();
+      barChart("#bar-chart",json);
+      $(this).tab('show');
+    });
+  });
+});
+
+</script>
+

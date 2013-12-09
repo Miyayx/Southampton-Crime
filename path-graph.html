@@ -1,0 +1,19 @@
+<!DOCTYPE default ><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/><link type="text/css" rel="stylesheet" href="css/index.css"/></head><body></body><script type="text/javascript" src="js/d3.v3.min.js"></script><script type="text/javascript" src="js/jquery.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/path-graph.js"></script><script type="text/javascript" src="js/showtweets.js"></script><div class="container"><div class="row"><!--.span5--><div id="graph" style="margin-top:20px;margin-buttom:10px" class="col-md-8"><p>Path Graph</p><p>Show who repost the tweet</p><div id="path-graph"></div></div><!--.span4--><div style="margin-top:20px" class="col-md-3 col-md-offset-1"><span>Information: <table style="margin-top:20px" class="table"><thead><tr><th> </th></tr></thead><tbody id="one-tweet"><tr><td>ObjectId</td><td></td></tr><tr><td>ScreenName</td><td></td></tr><tr><td>Gender</td><td></td></tr><tr><td>Time</td><td></td></tr><tr><td>Text</td><td></td></tr></tbody></table></span></div><script type="text/javascript">$(document).ready(function(){
+
+  $.urlParam = function(name){
+      var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+          if( results)
+          return results[1] || 0;
+          else
+          return null;
+          }
+          
+  var tweetid = $.urlParam("tweetid");
+  if(!tweetid)
+    $("#graph").removeClass("col-md-8").addClass("col-md-12");
+  else{
+    $("#graph").removeClass("col-md-12").addClass("col-md-8");
+  }
+  pathGraph("#path-graph",tweetid);
+  
+});</script></div></div></html>

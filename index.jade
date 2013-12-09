@@ -1,0 +1,81 @@
+doctype default 
+include mixins
+html
+  head
+    block head
+      block meta
+        meta(charset="utf-8")
+        mixin viewport
+      mixin stylesheet("css/bootstrap.min.css")
+      block style
+        mixin stylesheet("css/index.css")
+  body
+  block content
+  block script
+    mixin javascript("js/d3.v3.min.js")
+    mixin javascript("js/jquery.min.js")
+    mixin javascript("js/bootstrap.min.js")
+    mixin javascript("js/bubble-chart.js")
+    mixin javascript("js/bar-chart.js")
+    mixin javascript("js/path-graph.js")
+    mixin javascript("js/showtweets.js")
+
+    .container
+      .row
+        //.span5
+        .col-md-5
+          .tabtable(style="text-align:center;margin-top:20px;margin-buttom:10px")
+            ul.nav.nav-pills
+              li.active#bubble-tab(style="text-align:center")
+                a(href="#bubble-chart",data-toggle="tab") Bubble Chart
+              li#bar-tab(style="text-align:center")
+                a(href="#bar-chart",data-toggle="tab") Bar Chart
+              li#line-tab(style="text-align:center")
+                a(href="#line-chart",data-toggle="tab") Line Chart
+            .tab-content
+              .tab-pane.active#bubble-chart
+              .tab-pane#bar-chart
+              .tab-pane#line-chart
+        //.span4
+        .col-md-5.col-md-offset-2(style="margin-top:20px")
+          span Total Tweets: 
+            span#tweet-n.badge.badge-important
+              a(href="http://localhost:8000/path-graph.html") 0
+            table.table(style="margin-top:20px")
+              thead
+                tr
+                  th.col-md-1 User
+                  th.col-md-3 Text
+              tbody#tweet-texts
+  
+        script(type='text/javascript').
+          $(document).ready(function(){
+          
+            $.getJSON("data/reposts.json",function(json){
+                $("#tweet-n a").html(json["total"]);
+                bubbleChart("#bubble-chart",json);
+                barChart("#bar-chart",json);
+              $(".nav-pills li#bubble-tab a").click(function(e){
+                e.preventDefault();
+                $("tweet-texts").children().remove();
+                bubbleChart("#bubble-chart",json);
+                $(this).tab('show');
+              });
+          
+              $(".nav-pills li#bar-tab a").click(function(e){
+                e.preventDefault();
+                $("tweet-texts").children().remove();
+                barChart("#bar-chart",json);
+                $(this).tab('show');
+              });
+
+              $(".nav-pills li#bar-tab a").click(function(e){
+                t = this;
+                $.getJSON("data/tweetTime.json",function(time_json){
+                    $("tweet-texts").children().remove();
+                    barChart("#line-chart",time_json);
+                    $(t).tab('show');
+                })
+            });
+          });
+  

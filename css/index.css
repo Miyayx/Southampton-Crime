@@ -1,0 +1,33 @@
+#bar-chart text{
+  font: 15px sans-serif;
+}
+
+#bubble-chart text{
+  font: 15px sans-serif;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+  text-align:center;
+}
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+#path-graph text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
