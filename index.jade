@@ -38,7 +38,7 @@ html
               .tab-pane#bar-chart
               .tab-pane#line-chart
         //.span4
-        .col-md-5.col-md-offset-2(style="margin-top:20px")
+        #tweet-info.col-md-5.col-md-offset-2(style="margin-top:20px")
           span Total Tweets: 
             span#tweet-n.badge.badge-important
               a(href="/path-graph.html") 0
@@ -57,23 +57,24 @@ html
                 bubbleChart("#bubble-chart",json);
                 barChart("#bar-chart",json);
               $(".nav-pills li#bubble-tab a").click(function(e){
-                $("tweet-texts").children().remove();
+                    $("#tweet-info").show();           
+                $("#tweet-texts").children().remove();
                 bubbleChart("#bubble-chart",json);
                 $(this).tab('show');
               });
           
               $(".nav-pills li#bar-tab a").click(function(e){
-                $("tweet-texts").children().remove();
+                    $("#tweet-info").hide();           
                 barChart("#bar-chart",json);
                 $(this).tab('show');
               });
             });
+
+            $.getJSON("data/tweetTime.json",function(time_json){
               $(".nav-pills li#line-tab a").click(function(e){
-                t = this;
-                $.getJSON("data/tweetTime.json",function(time_json){
-                    $("tweet-texts").children().remove();
+                    $("#tweet-info").hide();           
                     lineChart("#line-chart",time_json);
-                    $(t).tab('show');
+                    $(this).tab('show');
                 });
           });
         });

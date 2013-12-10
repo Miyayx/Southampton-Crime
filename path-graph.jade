@@ -16,6 +16,7 @@ html
     mixin javascript("js/jquery.min.js")
     mixin javascript("js/bootstrap.min.js")
     mixin javascript("js/path-graph.js")
+    mixin javascript("js/time-chart.js")
     mixin javascript("js/showtweets.js")
 
     .container
@@ -76,13 +77,12 @@ html
             pathGraph("#path-graph",tweetid);
 
 
-                $.getJSON("data/tweetTime.json",function(time_json){
-                
+            $.getJSON("data/timeInterval_900.json",function(time_json){
+              alert(time_json)
 
               $(".nav-pills li#time-tab a").click(function(e){
-                    lineChart("#time-chart",time_json[tweetid]);
+                    timeChart("#time-chart",time_json[tweetid]);
                     $(t).tab('show');
                 });
-              
-          });
+            });
           });

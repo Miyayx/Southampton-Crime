@@ -1,28 +1,29 @@
-<!DOCTYPE default ><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/><link type="text/css" rel="stylesheet" href="css/index.css"/></head><body><script type="text/javascript" src="js/d3.v3.min.js"></script><script type="text/javascript" src="js/jquery.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/bubble-chart.js"></script><script type="text/javascript" src="js/bar-chart.js"></script><script type="text/javascript" src="js/line-chart.js"></script><script type="text/javascript" src="js/path-graph.js"></script><script type="text/javascript" src="js/showtweets.js"></script><div class="container"><div class="row"><!--.span5--><div class="col-md-5"><div style="text-align:center;margin-top:20px;margin-buttom:10px" class="tabtable"><ul class="nav nav-pills"><li id="bubble-tab" style="text-align:center" class="active"><a href="#bubble-chart" data-toggle="tab">Bubble Chart</a></li><li id="bar-tab" style="text-align:center"><a href="#bar-chart" data-toggle="tab">Bar Chart</a></li><li id="line-tab" style="text-align:center"><a href="#line-chart" data-toggle="tab">Line Chart</a></li></ul><div class="tab-content"><div id="bubble-chart" class="tab-pane active"></div><div id="bar-chart" class="tab-pane"></div><div id="line-chart" class="tab-pane"></div></div></div></div><!--.span4--><div style="margin-top:20px" class="col-md-5 col-md-offset-2"><span>Total Tweets: <span id="tweet-n" class="badge badge-important"><a href="/path-graph.html">0</a></span><table style="margin-top:20px" class="table table-hover"><thead><tr><th class="col-md-1">User</th><th class="col-md-3">Text</th></tr></thead><tbody id="tweet-texts"></tbody></table></span></div></div><script type="text/javascript">$(document).ready(function(){
+<!DOCTYPE default ><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/><link type="text/css" rel="stylesheet" href="css/index.css"/></head><body><script type="text/javascript" src="js/d3.v3.min.js"></script><script type="text/javascript" src="js/jquery.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/bubble-chart.js"></script><script type="text/javascript" src="js/bar-chart.js"></script><script type="text/javascript" src="js/line-chart.js"></script><script type="text/javascript" src="js/path-graph.js"></script><script type="text/javascript" src="js/showtweets.js"></script><div class="container"><div class="row"><!--.span5--><div class="col-md-5"><div style="text-align:center;margin-top:20px;margin-buttom:10px" class="tabtable"><ul class="nav nav-pills"><li id="bubble-tab" style="text-align:center" class="active"><a href="#bubble-chart" data-toggle="tab">Bubble Chart</a></li><li id="bar-tab" style="text-align:center"><a href="#bar-chart" data-toggle="tab">Bar Chart</a></li><li id="line-tab" style="text-align:center"><a href="#line-chart" data-toggle="tab">Line Chart</a></li></ul><div class="tab-content"><div id="bubble-chart" class="tab-pane active"></div><div id="bar-chart" class="tab-pane"></div><div id="line-chart" class="tab-pane"></div></div></div></div><!--.span4--><div id="tweet-info" style="margin-top:20px" class="col-md-5 col-md-offset-2"><span>Total Tweets: <span id="tweet-n" class="badge badge-important"><a href="/path-graph.html">0</a></span><table style="margin-top:20px" class="table table-hover"><thead><tr><th class="col-md-1">User</th><th class="col-md-3">Text</th></tr></thead><tbody id="tweet-texts"></tbody></table></span></div></div><script type="text/javascript">$(document).ready(function(){
 
   $.getJSON("data/reposts.json",function(json){
       $("#tweet-n a").html(json["total"]);
         bubbleChart("#bubble-chart",json);
         barChart("#bar-chart",json);
       $(".nav-pills li#bubble-tab a").click(function(e){
-        $("tweet-texts").children().remove();
+            $("#tweet-info").show();           
+      $("#tweet-texts").children().remove();
         bubbleChart("#bubble-chart",json);
         $(this).tab('show');
       });
       
       $(".nav-pills li#bar-tab a").click(function(e){
-        $("tweet-texts").children().remove();
-        barChart("#bar-chart",json);
+            $("#tweet-info").hide();           
+      barChart("#bar-chart",json);
         $(this).tab('show');
       });
   });
+  
+    $.getJSON("data/tweetTime.json",function(time_json){
       $(".nav-pills li#line-tab a").click(function(e){
-        t = this;
-        $.getJSON("data/tweetTime.json",function(time_json){
-            $("tweet-texts").children().remove();
+            $("#tweet-info").hide();           
             lineChart("#line-chart",time_json);
-            $(t).tab('show');
-        });
+            $(this).tab('show');
+      });
   });
 });
 </script></div></body></html>

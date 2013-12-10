@@ -15,6 +15,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 var lineChart = function(chartid, json){
+    $(chartid).empty();
 
   var margin = {top: 20, right: 20, bottom: 30, left: 50},
       width = 960 - margin.left - margin.right,
@@ -94,6 +95,12 @@ var lineChart = function(chartid, json){
     svg.append("path")
         .datum(data)
         .attr("class", "line")
-        .attr("d", line);
+        .attr("d", line)
+        .append("text")
+        .text(function(d,i){
+        
+        d;
+        });
+
   
 }
