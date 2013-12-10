@@ -16,6 +16,7 @@
   text-align:center;
 }
 
+//for path-graph
 .link {
   fill: none;
   stroke: #666;
@@ -31,3 +32,27 @@
   font: 10px sans-serif;
   pointer-events: none;
 }
+
+//for line-chart
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+#line-chart .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+#time-chart .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+

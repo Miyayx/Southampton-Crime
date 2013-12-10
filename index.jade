@@ -17,6 +17,7 @@ html
       mixin javascript("js/bootstrap.min.js")
       mixin javascript("js/bubble-chart.js")
       mixin javascript("js/bar-chart.js")
+      mixin javascript("js/line-chart.js")
       mixin javascript("js/path-graph.js")
       mixin javascript("js/showtweets.js")
 
@@ -41,7 +42,7 @@ html
           span Total Tweets: 
             span#tweet-n.badge.badge-important
               a(href="/path-graph.html") 0
-            table.table(style="margin-top:20px")
+            table.table.table-hover(style="margin-top:20px")
               thead
                 tr
                   th.col-md-1 User
@@ -67,11 +68,11 @@ html
                 $(this).tab('show');
               });
             });
-              $(".nav-pills li#bar-tab a").click(function(e){
+              $(".nav-pills li#line-tab a").click(function(e){
                 t = this;
                 $.getJSON("data/tweetTime.json",function(time_json){
                     $("tweet-texts").children().remove();
-                    barChart("#line-chart",time_json);
+                    lineChart("#line-chart",time_json);
                     $(t).tab('show');
                 });
           });

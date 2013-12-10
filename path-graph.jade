@@ -74,5 +74,15 @@ html
               $("#graph").removeClass("col-md-12").addClass("col-md-8");
             }
             pathGraph("#path-graph",tweetid);
+
+
+                $.getJSON("data/tweetTime.json",function(time_json){
+                
+
+              $(".nav-pills li#time-tab a").click(function(e){
+                    lineChart("#time-chart",time_json[tweetid]);
+                    $(t).tab('show');
+                });
               
+          });
           });
