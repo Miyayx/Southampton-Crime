@@ -4,7 +4,7 @@ var showTweets = function(ts){
   $table.children().remove();
 
   ts.forEach(function(d,i){
-      var $elem = $('<tr><td><small>'+d.user + '</td><td><a href = "/path-graph.html?tweetid='+d.tweetid+'">' + d.text + '</a></td><tr>');
+      var $elem = $('<tr><td><small>'+d.user + '</td><td><a href = "path-graph.html?tweetid='+d.tweetid+'">' + d.text + '</a></td><tr>');
       if(i%2 == 1)
         $elem.addClass("danger");
       $elem.appendTo($table);

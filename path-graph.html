@@ -17,12 +17,10 @@
   pathGraph("#path-graph",tweetid);
   
   
-  $.getJSON("data/timeInterval_900.json",function(time_json){
-    alert(time_json)
-    
+  $.getJSON("data/timeInterval_1800.json",function(time_json){
     $(".nav-pills li#time-tab a").click(function(e){
           timeChart("#time-chart",time_json[tweetid]);
-          $(t).tab('show');
+          $(this).tab('show');
     });
   });
 });</script></div></div></html>
