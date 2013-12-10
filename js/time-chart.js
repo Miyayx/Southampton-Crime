@@ -29,34 +29,46 @@ var timeChart = function(chartid, json){
 	//	getdata(json, tweetid);
     //    }
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
-      width = 960 - margin.left - margin.right,
+  var margin = {top: 20, right: 20, bottom:100, left: 50},
+      width = 750 - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom;
   
   //var parseDate = d3.time.format("%y.%m.%d").parse;
+
   
     data = json;
     data.forEach(function(d){
       d.date = d.time;
       d.close = d.tweetNum;
       });
+
+    var formatTime = d3.time.format("%M:%S");
+    var formatMinutes = function(d,i){
+      return formatTime(d);
+    };
   
   //var x = d3.scale.linear()
-  //    .range([0,data[data.length-1].time/1800]);
+      //.domain([0,data[data.length-1].time])
+  //    .domain([0,12])
+  //    .range([0,width]);
   var x = d3.time.scale()
-          .domain(Number(data[0].time/60),Number(data[data.length-1].time/60) )
+          .domain([0,d3.max(data,function(d){return new Date(Number(d.time)*1000)})])
+          .range([0,width])
   
+  var y_max = d3.max(data,function(d){return d.tweetNum})
   var y = d3.scale.linear()
+      .domain([0,y_max])
       .range([height, 0]);
   
   var xAxis = d3.svg.axis()
       .scale(x)
-      .ticks(16)
-      .orient("bottom");
+      .ticks(data.length)
+      .orient("bottom")
+      //.tickFormat(formatMinutes);
   
   var yAxis = d3.svg.axis()
       .scale(y)
-      .ticks(16)
+      .ticks(y_max)
       .orient("left");
   
   var line = d3.svg.line()
@@ -70,12 +82,18 @@ var timeChart = function(chartid, json){
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain(d3.extent(data, function(d) { return d.close; }));
+    //y.domain(d3.extent(data, function(d) { return d.close; }));
   
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
   
     svg.append("g")
         .attr("class", "y axis")

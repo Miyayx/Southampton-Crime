@@ -17,25 +17,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 var lineChart = function(chartid, json){
     $(chartid).empty();
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  var margin = {top: 20, right: 20, bottom: 100, left: 50},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
   
   var parseDate = d3.time.format("%y.%m.%d").parse;
-  
-  var x = d3.time.scale()
-      .range([0, width]);
-  
-  var y = d3.scale.linear()
-      .range([height, 0]);
-  
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom");
-  
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
   
   var line = d3.svg.line()
       .x(function(d) { return x(d.date); })
@@ -74,13 +60,37 @@ var lineChart = function(chartid, json){
 
       data = data.sort(sortDate);
 
+  var x = d3.time.scale()
+      .range([0, width]);
+  
+  var y = d3.scale.linear()
+      .range([height, 0]);
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .tickFormat(function(d,i){
+        var formatTime = d3.time.format("%Y.%M.%d");
+        return formatTime(data[i].date); 
+      })
+  
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain(d3.extent(data, function(d) { return d.close; }));
   
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
   
     svg.append("g")
         .attr("class", "y axis")
