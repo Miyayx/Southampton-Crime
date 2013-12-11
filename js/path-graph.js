@@ -1,4 +1,3 @@
-
 var pathGraph = function(graphid, tweetid) {
     //var jsonfile = "triple_tnt_list.json";
     var jsonfile = "data/triple_tnt_dict.json";
@@ -49,7 +48,11 @@ var pathGraph = function(graphid, tweetid) {
 
 	var svg = d3.select(graphid).append("svg").attr("width", width).attr("height", height);
 
-	var link = svg.selectAll(".link").data(force.links()).enter().append("line").attr("class", "link");
+	var link = svg.selectAll(".link").data(force.links()).enter().append("line")
+	.attr("fill", "none")
+	.attr("stroke", "#666")
+	.attr("stroke-width", "1.5px")
+	.attr("class", "link");
 
 	var node = svg.selectAll(".node")
     .data(force.nodes())
